@@ -3,18 +3,18 @@ import java.util.*;
 
 public class ProductReport {
     static OperatingSystem[] operatingSystemList = new OperatingSystem[16];
+    static Software[] softwareList = new Software[15];
+    static Hypervisor[] hypervisorList = new Hypervisor[5];
+    static Product[] productList = new Product[10];
     public static void main(String[] args) {
         //Reads data for operating systems and fills global array
-        FillOSList();
-        for (int i = 1; i < 16; i++) {
-                System.out.println(operatingSystemList[i].getID())
-            }
+        fillOSList();
         //Reads data for software and fills global array
-
+        fillSoftwareList();
         //Reads data for hypervisors and fills global array
-
+        fillHypervisorList();
         //Reads data for products and fills global array
-
+        fillProductList();
         //Prints menu
         printMenu();
         
@@ -119,7 +119,7 @@ public class ProductReport {
         }
     }
     
-    public static void FillOSList() {
+    public static void fillOSList() {
         operatingSystemList = new OperatingSystem[16]; //Creates array using global array
         try {
             File sysFile = new File("OperatingSystemList.txt"); //Opens the file
@@ -132,6 +132,65 @@ public class ProductReport {
                 operatingSystemList[i].setVersion(strings[2]); //Sets version number for current operating system
                 operatingSystemList[i].setHardware(strings[3]); //Sets hardware for current operating system
                 operatingSystemList[i].setReleaseDate(strings[4]); //Sets release date for current operating system
+            }
+        fileReader.close(); //Closes the file
+        } catch (FileNotFoundException e) { //Checks if file not found and prints error message
+        System.out.println("An error occurred while opening the operating system file.");
+        }
+    }
+
+    public static void fillSoftwareList() {
+        softwareList = new Software[15]; //Creates array using global array
+        try {
+            File sysFile = new File("SoftwareList.txt"); //Opens the file
+            Scanner fileReader = new Scanner(sysFile);
+            for (int i = 1; i < 15; i++) {
+                String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
+                softwareList[i] = new Software(); //Creates empty software object
+                softwareList[i].setID(strings[0]); //Sets ID for current software
+                softwareList[i].setName(strings[1]); //Sets name for current software
+                softwareList[i].setVersion(strings[2]); //Sets version number for current software
+                softwareList[i].setReleaseDate(strings[3]); //Sets release date for current software
+            }
+        fileReader.close(); //Closes the file
+        } catch (FileNotFoundException e) { //Checks if file not found and prints error message
+        System.out.println("An error occurred while opening the software file.");
+        }
+    }
+
+    public static void fillHypervisorList() {
+        hypervisorList = new Hypervisor[5]; //Creates array using global array
+        try {
+            File sysFile = new File("HypervisorList.txt"); //Opens the file
+            Scanner fileReader = new Scanner(sysFile);
+            for (int i = 1; i < 5; i++) {
+                String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
+                hypervisorList[i] = new Hypervisor(); //Creates empty hypervisor object
+                hypervisorList[i].setID(strings[0]); //Sets ID for current hypervisor
+                hypervisorList[i].setName(strings[1]); //Sets name for current hypervisor
+                hypervisorList[i].setVersion(strings[2]); //Sets version number for current hypervisor
+                hypervisorList[i].setReleaseDate(strings[3]); //Sets release date for current hypervisor
+            }
+        fileReader.close(); //Closes the file
+        } catch (FileNotFoundException e) { //Checks if file not found and prints error message
+        System.out.println("An error occurred while opening the hypervisor file.");
+        }
+    }
+
+    public static void fillProductList() {
+        productList = new Product[10]; //Creates array using global array
+        try {
+            File sysFile = new File("ProductList.txt"); //Opens the file
+            Scanner fileReader = new Scanner(sysFile);
+            for (int i = 1; i < 10; i++) {
+                String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
+                productList[i] = new Product(); //Creates empty product object
+                productList[i].setID(strings[0]); //Sets ID for current product
+                productList[i].setName(strings[1]); //Sets name for current product
+                productList[i].setVersion(strings[2]); //Sets version for current product
+                productList[i].setSupportedOS(strings[3]); //Sets list of supported operating systems for current product
+                productList[i].setSupportedSoftware(strings[4]); //Sets list of supported software for current product
+                productList[i].setSupportedHypervisors(strings[5]); //Sets list of supported hypervisors for current product
             }
         fileReader.close(); //Closes the file
         } catch (FileNotFoundException e) { //Checks if file not found and prints error message
