@@ -10,7 +10,7 @@ public class Hypervisor {
     private String releaseDate; //Release date of hypervisor
 	
 	//Default constructor
-    public Hypervisor(String id, String name, String version, String releaseDate) {
+    public Hypervisor() {
 	    this.id = "N/A";
 	    this.name = "N/A";
 	    this.version = "N/A";
