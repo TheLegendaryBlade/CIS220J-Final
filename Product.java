@@ -18,7 +18,7 @@ public class Product {
         this.version = "N/A";
 	    this.supportedOS = "N/A";
         this.supportedSoftware = "N/A";
-        this.releaseDate = "N/A";
+        this.supportedHypervisors = "N/A";
 	}
 	
 	public Product(String id, String name, String supportedOS, String supportedSoftware, String supportedHypervisors, String releaseDate) {
@@ -27,7 +27,7 @@ public class Product {
         this.version = version;
 	    this.supportedOS = supportedOS;
         this.supportedSoftware = supportedSoftware;
-        this.releaseDate = releaseDate;
+        this.supportedHypervisors = supportedHypervisors;
 	}
 	
 	//Getters
@@ -51,8 +51,8 @@ public class Product {
     return supportedSoftware;
     }
 
-    public String getReleaseDate() {
-    return releaseDate;
+    public String getsupportedHypervisors() {
+    return supportedHypervisors;
     }
 	
 	//Setters
@@ -68,15 +68,15 @@ public class Product {
     this.version = version;
     }
 
-    public void setsupportedOS(String supportedOS) {
+    public void setSupportedOS(String supportedOS) {
     this.supportedOS = supportedOS;
     }
 
-    public void setsupportedSoftware(String supportedSoftware) {
+    public void setSupportedSoftware(String supportedSoftware) {
     this.supportedSoftware = supportedSoftware;
     }
 
-    public void setReleaseDate(String releaseDate) {
-    this.releaseDate = releaseDate;
+    public void setSupportedHypervisors(String supportedHypervisors) {
+    this.supportedHypervisors = supportedHypervisors;
     }
 }
