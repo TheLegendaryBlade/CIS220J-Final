@@ -92,7 +92,7 @@ public class ProductReport {
             switch(input2) {
             case "1":
                 //Show list of all operating systems
-
+                supportedOSReport();
             goodInput2 = true;
             break;
             case "2":
@@ -124,7 +124,7 @@ public class ProductReport {
         try {
             File sysFile = new File("OperatingSystemList.txt"); //Opens the file
             Scanner fileReader = new Scanner(sysFile);
-            for (int i = 1; i < 16; i++) {
+            for (int i = 0; i < 16; i++) {
                 String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
                 operatingSystemList[i] = new OperatingSystem(); //Creates empty operating system object
                 operatingSystemList[i].setID(strings[0]); //Sets ID for current operating system
@@ -144,7 +144,7 @@ public class ProductReport {
         try {
             File sysFile = new File("SoftwareList.txt"); //Opens the file
             Scanner fileReader = new Scanner(sysFile);
-            for (int i = 1; i < 15; i++) {
+            for (int i = 0; i < 15; i++) {
                 String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
                 softwareList[i] = new Software(); //Creates empty software object
                 softwareList[i].setID(strings[0]); //Sets ID for current software
@@ -163,7 +163,7 @@ public class ProductReport {
         try {
             File sysFile = new File("HypervisorList.txt"); //Opens the file
             Scanner fileReader = new Scanner(sysFile);
-            for (int i = 1; i < 5; i++) {
+            for (int i = 0; i < 5; i++) {
                 String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
                 hypervisorList[i] = new Hypervisor(); //Creates empty hypervisor object
                 hypervisorList[i].setID(strings[0]); //Sets ID for current hypervisor
@@ -182,7 +182,7 @@ public class ProductReport {
         try {
             File sysFile = new File("ProductList.txt"); //Opens the file
             Scanner fileReader = new Scanner(sysFile);
-            for (int i = 1; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {
                 String [] strings = fileReader.nextLine().split(";"); //Splits line into array of strings
                 productList[i] = new Product(); //Creates empty product object
                 productList[i].setID(strings[0]); //Sets ID for current product
@@ -195,6 +195,56 @@ public class ProductReport {
         fileReader.close(); //Closes the file
         } catch (FileNotFoundException e) { //Checks if file not found and prints error message
         System.out.println("An error occurred while opening the operating system file.");
+        }
+    }
+    
+     // This method displays the supported operating systems for a selected product
+    public static void supportedOSReport() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Supported Operating Systems Report ===");
+
+        // Display all available products
+        for (int i = 0; i < productList.length; i++) {
+            System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
+        }
+
+        // Ask user to choose a product by number
+        System.out.print("Select a product by number: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        // Validate selection
+        if (choice < 1 || choice > productList.length) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        // Get the selected product
+        Product selectedProduct = productList[choice - 1];
+
+        // Split the list of supported OS IDs using ";" as separator
+        String[] supportedIDs = selectedProduct.getsupportedOS().split(",");
+
+        System.out.println("\nSupported Operating Systems for " + selectedProduct.getName() + ":");
+
+        boolean found = false;
+
+        // Compare each OS in the list with the supported IDs
+        for (OperatingSystem os : operatingSystemList) {
+            for (String id : supportedIDs) {
+                if (os.getID().trim().equalsIgnoreCase(id.trim())) {
+                    // If match found, display OS details
+                    System.out.println("- " + os.getName() + " " + os.getVersion() +
+                            " (" + os.getHardware() + ", Released: " + os.getReleaseDate() + ")");
+                    found = true;
+                    break; // Move to the next OS
+                }
+            }
+        }
+
+        // If no matches were found
+        if (!found) {
+            System.out.println("No supported operating systems found for this product.");
         }
     }
 }
