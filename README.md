@@ -28,8 +28,6 @@ Supported Software Report: Andrea
 
 Supported Hypervisor Report: Michelle
 
-Supported Product Report: Susan
-
 User Manual: Miguel
 
 Technical Document: Colton
