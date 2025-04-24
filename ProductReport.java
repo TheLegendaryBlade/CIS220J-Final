@@ -2,10 +2,12 @@ import java.io.*;
 import java.util.*;
 
 public class ProductReport {
+    //Global variables
     static OperatingSystem[] operatingSystemList = new OperatingSystem[16];
     static Software[] softwareList = new Software[15];
     static Hypervisor[] hypervisorList = new Hypervisor[5];
     static Product[] productList = new Product[10];
+	
     public static void main(String[] args) {
         //Reads data for operating systems and fills global array
         fillOSList();
