@@ -53,7 +53,7 @@ public class ProductReport {
                 break;
             case "4":
                 //Show list of all products
-
+                allProductsReport();
                 goodInput = true;
                 break;
             case "5":
@@ -197,6 +197,17 @@ public class ProductReport {
         System.out.println("An error occurred while opening the operating system file.");
         }
     }
+
+    // This method displays the all products report (case 4)
+	public static void allProductsReport() {
+		System.out.println("All Products");
+		System.out.printf("%-48s %-10s\n", "Name", "Version"); // The '%' begins a column | the '-' left aligns the text (remove it to right align) | the 48s and 10s gives the column a width of that many characters  
+		
+		for (int i = 0; i < productList.length; i++) {
+			Product p = productList[i]; // get product list
+			System.out.printf("%-48s %-10s\n", p.getName(), p.getVersion());
+		}
+	}
     
      // This method displays the supported operating systems for a selected product
     public static void supportedOSReport() {
