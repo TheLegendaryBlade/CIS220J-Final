@@ -40,6 +40,7 @@ public class ProductReport {
             switch(input) {
             case "1":
                 //Show list of all operating systems
+		allOsReport();
 
                 goodInput = true;
                 break;
@@ -200,6 +201,17 @@ public class ProductReport {
         }
     }
 
+	
+	
+	public static void allOsReport() {
+		
+		System.out.println("List of All Operating Systems: ");
+		for(OperatingSystem os :operatingSystemList) {
+			System.out.println( os.getID() + "  " + os.getName + " " +	os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
+		}
+	}
+}
+	
     // This method displays the all products report (case 4)
 	public static void allProductsReport() {
 		System.out.println("All Products");
@@ -261,3 +273,4 @@ public class ProductReport {
         }
     }
 }
+
