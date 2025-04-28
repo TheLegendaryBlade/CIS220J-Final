@@ -135,6 +135,7 @@ public class ProductReport {
                 operatingSystemList[i].setVersion(strings[2]); //Sets version number for current operating system
                 operatingSystemList[i].setHardware(strings[3]); //Sets hardware for current operating system
                 operatingSystemList[i].setReleaseDate(strings[4]); //Sets release date for current operating system
+		operatingSystemList[i].setSystemType(strings[5]); //Sets system type for current operating system
             }
         fileReader.close(); //Closes the file
         } catch (FileNotFoundException e) { //Checks if file not found and prints error message
@@ -154,6 +155,7 @@ public class ProductReport {
                 softwareList[i].setName(strings[1]); //Sets name for current software
                 softwareList[i].setVersion(strings[2]); //Sets version number for current software
                 softwareList[i].setReleaseDate(strings[3]); //Sets release date for current software
+		softwareList[i].setSoftwareType(strings[4]); //Sets release date for current software
             }
         fileReader.close(); //Closes the file
         } catch (FileNotFoundException e) { //Checks if file not found and prints error message
@@ -200,17 +202,14 @@ public class ProductReport {
         System.out.println("An error occurred while opening the operating system file.");
         }
     }
-
-	
 	
 	public static void allOsReport() {
 		
 		System.out.println("List of All Operating Systems: ");
 		for(OperatingSystem os :operatingSystemList) {
-			System.out.println( os.getID() + "  " + os.getName + " " +	os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
+			System.out.println( os.getID() + "  " + os.getName() + " " +	os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
 		}
 	}
-}
 	
     // This method displays the all products report (case 4)
 	public static void allProductsReport() {
