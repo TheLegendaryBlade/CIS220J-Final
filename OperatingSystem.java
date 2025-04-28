@@ -5,27 +5,30 @@ public class OperatingSystem {
     
     //Private Variables
     private String id;  //Identification for operating system
-	private String name;    //Name of operating system
-	private String version; //Version number of operating system
+    private String name;    //Name of operating system
+    private String version; //Version number of operating system
     private String hardware;    //Hardware used by operating system
     private String releaseDate; //Release date of operating system
+    private String sysType; //Type of operating system
 	
 	//Default constructor
 	public OperatingSystem() {
-	    this.id = "N/A";
-	    this.name = "N/A";
-	    this.version = "N/A";
+	this.id = "N/A";
+	this.name = "N/A";
+	this.version = "N/A";
         this.hardware = "N/A";
         this.releaseDate = "N/A";
+	this.systemType = "N/A";
 	}
 	
 	//Constructor with given values
 	public OperatingSystem(String id, String name, String version, String hardware, String releaseDate) {
-	    this.id = id;
-	    this.name = name;
-	    this.version = version;
+	this.id = id;
+	this.name = name;
+	this.version = version;
         this.hardware = hardware;
         this.releaseDate = releaseDate;
+	this.systemType = sysType;
 	}
 	
 	//Getters
@@ -48,6 +51,10 @@ public class OperatingSystem {
     public String getReleaseDate() {
     return releaseDate;
     }
+
+    public String getSystemType() {
+    return systemType;
+    }
 	
 	//Setters
     public void setID(String id) {
@@ -68,5 +75,9 @@ public class OperatingSystem {
 
     public void setReleaseDate(String releaseDate) {
     this.releaseDate = releaseDate;
+    }
+
+    public void setSystemType(String systemType) {
+    this.systemType = systemType;
     }
 }
