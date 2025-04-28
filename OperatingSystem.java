@@ -28,7 +28,7 @@ public class OperatingSystem {
 	this.version = version;
         this.hardware = hardware;
         this.releaseDate = releaseDate;
-	this.systemType = sysType;
+	this.systemType = systemType;
 	}
 	
 	//Getters
