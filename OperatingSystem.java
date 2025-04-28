@@ -9,7 +9,7 @@ public class OperatingSystem {
     private String version; //Version number of operating system
     private String hardware;    //Hardware used by operating system
     private String releaseDate; //Release date of operating system
-    private String sysType; //Type of operating system
+    private String systemType; //Type of operating system
 	
 	//Default constructor
 	public OperatingSystem() {
@@ -22,7 +22,7 @@ public class OperatingSystem {
 	}
 	
 	//Constructor with given values
-	public OperatingSystem(String id, String name, String version, String hardware, String releaseDate) {
+	public OperatingSystem(String id, String name, String version, String hardware, String releaseDate, String systemType) {
 	this.id = id;
 	this.name = name;
 	this.version = version;
