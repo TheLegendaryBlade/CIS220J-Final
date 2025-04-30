@@ -46,7 +46,7 @@ public class ProductReport {
                 break;
             case "2":
                 //Show list of all software
-
+		allSoftwareReport();
                 goodInput = true;
                 break;
             case "3":
@@ -100,7 +100,7 @@ public class ProductReport {
             break;
             case "2":
                 //Show list of all software
-
+		supportedSoftwareReport();
             goodInput2 = true;
             break;
             case "3":
