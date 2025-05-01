@@ -271,7 +271,7 @@ public class ProductReport {
             System.out.println("No supported operating systems found for this product.");
 	}
     }
-	public static void allSoftwareReport() {
+public static void allSoftwareReport() {
     System.out.println("All Related Software Report");
     System.out.printf("%10s%-30s %-10s %-15s\n", "", "Name", "Version", "Release Date");
 
