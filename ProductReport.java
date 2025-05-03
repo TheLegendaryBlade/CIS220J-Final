@@ -51,7 +51,7 @@ public class ProductReport {
                 break;
             case "3":
                 //Show list of all hypervisors
-
+		allHypervisorReport();
                 goodInput = true;
                 break;
             case "4":
@@ -290,5 +290,14 @@ public class ProductReport {
 		   }
 		}
     }
+    public static void allHypervisorReport() {//start of hypervisor report class
+	    System.out.println(); // move to next line 
+	    System.out.printf("All Hypervisors\n"); //print 
+	    System.out.printf( "%14s %30s %20s","Name" , "Version" , "Release Date\n"); //will print info in proper format
+		
+		for(Hypervisor hv : hypervisorList) { // will iterate thorugh array for hypervisor list  
+            System.out.printf("%10s%-27s %-12s %12s\n"," ", hv.getName(), hv.getVersion(), hv.getReleaseDate()); // will print and format when reading file 		
+        }
+    }//end of allHypervisorReport class	
 }
 
