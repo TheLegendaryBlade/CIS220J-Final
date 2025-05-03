@@ -290,6 +290,7 @@ public class ProductReport {
 		   }
 		}
     }
+    }	    
     public static void allHypervisorReport() {//start of hypervisor report class
 	    System.out.println(); // move to next line 
 	    System.out.printf("All Hypervisors\n"); //print 
