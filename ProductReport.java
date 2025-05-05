@@ -333,4 +333,48 @@ public class ProductReport {
         	System.out.println("No supported software found for this product.");
     	}
     }
+	
+    public static void supportedHypervisorReport() {
+	    int index = 1; //intialize index for number list 
+	    System.out.println(); //space 
+	    System.out.println("===Supported Hypervisor Product Report==="); // beginning of hypervisor prod report 
+	    
+	    	for (Product prod : productList) { // will iterate through product list 
+			System.out.println( (index++)  + "."+ prod.getName() + " " + prod.getVersion()); //list number 1-10 with product and version
+		}
+	    
+	    Scanner prodinput = new Scanner(System.in);  //input 
+            System.out.println(); // begin new line for input for report
+	    System.out.println("Enter a number 1-10 to generate a Supported Hypervisor Product report:"); 
+	    int input = Integer.parseInt(prodinput.nextLine()); //convert str into int 
+	    
+	    Product select = productList[input - 1];
+	    String[] supportedIDs = select.getsupportedHypervisors().split(",");
+	    
+  	    // these lines will print name and version for hypervisor report 
+	    System.out.println();
+	    System.out.println("Report:");
+            System.out.println(select.getName() + " " + select.getVersion() + " - " + "Supported Hypervisors"); 
+
+            boolean bool = true;
+	    
+	    for (Hypervisor hypervisor: hypervisorList) {
+		    for (String id : supportedIDs) {
+			    if (hypervisor.getID().trim().equalsIgnoreCase(id.trim())) {
+				    if (bool) {
+					    // will format name and version to desired format
+					    System.out.printf("%10s%-24s %-10s\n", " ", "Name", "Version");
+					    bool = false;
+				    } 
+				    System.out.printf("%10s%-24s %-10s\n", " ", hypervisor.getName(), hypervisor.getVersion()); // print name and version of hypervisor 
+				    break;
+			    }
+		    }
+	    }
+	    if (bool) { // print none supproted for product 
+		    System.out.println();
+		    System.out.println("None Supported");
+	    }
+    }
+
 }
