@@ -224,53 +224,47 @@ public class ProductReport {
     
      // This method displays the supported operating systems for a selected product
     public static void supportedOSReport() {
-        Scanner scanner = new Scanner(System.in);
+    	Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Supported Operating Systems Report ===");
+    	System.out.println("=== Supported Operating Systems Report ===");
 
-        // Display all available products
-        for (int i = 0; i < productList.length; i++) {
-            System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
-        }
+    	// Display all available products
+    	for (int i = 0; i < productList.length; i++) {
+        	System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
+    	}
 
-        // Ask user to choose a product by number
-        System.out.print("Select a product by number: ");
-        int choice = Integer.parseInt(scanner.nextLine());
+    	System.out.print("Select a product by number: ");
+    	int choice = Integer.parseInt(scanner.nextLine());
 
-        // Validate selection
-        if (choice < 1 || choice > productList.length) {
-            System.out.println("Invalid selection.");
-            return;
-        }
+    	if (choice < 1 || choice > productList.length) {
+        	System.out.println("Invalid selection.");
+        	return;
+    	}
 
-        // Get the selected product
-        Product selectedProduct = productList[choice - 1];
+    	Product selectedProduct = productList[choice - 1];
+    	String[] supportedIDs = selectedProduct.getsupportedOS().split(",");
 
-        // Split the list of supported OS IDs using ";" as separator
-        String[] supportedIDs = selectedProduct.getsupportedOS().split(",");
+    	System.out.println("\nSupported Operating Systems for " + selectedProduct.getName() + ":");
 
-        System.out.println("\nSupported Operating Systems for " + selectedProduct.getName() + ":");
+    	boolean found = false;
+    	for (OperatingSystem os : operatingSystemList) {
+        	for (String id : supportedIDs) {
+           		if (os.getID().trim().equalsIgnoreCase(id.trim())) {
+                	// Print including system type (Windows/Linux)
+                	System.out.println("- " + os.getName() + " " + os.getVersion() +
+                        " [" + os.getSystemType() + "] (" +
+                        os.getHardware() + ", Released: " + os.getReleaseDate() + ")");
+                	found = true;
+                	break;
+            		}
+        	}
+    	}
 
-        boolean found = false;
-
-        // Compare each OS in the list with the supported IDs
-        for (OperatingSystem os : operatingSystemList) {
-            for (String id : supportedIDs) {
-                if (os.getID().trim().equalsIgnoreCase(id.trim())) {
-                    // If match found, display OS details
-                    System.out.println("- " + os.getName() + " " + os.getVersion() +
-                            " (" + os.getHardware() + ", Released: " + os.getReleaseDate() + ")");
-                    found = true;
-                    break; // Move to the next OS
-                }
-            }
-        }
-
-        // If no matches were found
-        if (!found) {
-            System.out.println("No supported operating systems found for this product.");
-	}
-    }
+    	if (!found) {
+        	System.out.println("No supported operating systems found for this product.");
+    	}
+   }
+	
     public static void allSoftwareReport() {
         System.out.println("All Related Software Report");
 	System.out.printf("%10s%-30s %-10s %-15s\n", "", "Name", "Version", "Release Date");
@@ -289,7 +283,7 @@ public class ProductReport {
           	              "", sw.getName(), sw.getVersion(), sw.getReleaseDate());
 		   }
 		}
-    }
+    	}
     }	    
     public static void allHypervisorReport() {//start of hypervisor report class
 	    System.out.println(); // move to next line 
@@ -300,5 +294,43 @@ public class ProductReport {
             System.out.printf("%10s%-26s %-15s  %6s\n"," ", hv.getName(), hv.getVersion(), hv.getReleaseDate()); // will print and format when reading file 		
         }
     }//end of allHypervisorReport class	
-}
+    
+    public static void supportedSoftwareReport() {
+    	Scanner scanner = new Scanner(System.in);
 
+    	System.out.println("=== Supported Software Report ===");
+
+    	for (int i = 0; i < productList.length; i++) {
+        	System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
+    	}
+
+    	System.out.print("Select a product by number: ");
+    	int choice = Integer.parseInt(scanner.nextLine());
+
+    	if (choice < 1 || choice > productList.length) {
+        	System.out.println("Invalid selection.");
+        	return;
+    	}
+
+    	Product selectedProduct = productList[choice - 1];
+    	String[] supportedIDs = selectedProduct.getsupportedSoftware().split(",");
+
+    	System.out.println("\nSupported Software for " + selectedProduct.getName() + ":");
+
+    	boolean found = false;
+    	for (Software sw : softwareList) {
+        	for (String id : supportedIDs) {
+            		if (sw.getID().trim().equalsIgnoreCase(id.trim())) {
+                		System.out.println("- " + sw.getName() + " " + sw.getVersion() +
+                        	" [" + sw.getSoftwareType() + "] (Released: " + sw.getReleaseDate() + ")");
+                		found = true;
+                		break;
+            		}
+        	}
+    	}
+
+    	if (!found) {
+        	System.out.println("No supported software found for this product.");
+    	}
+    }
+}
