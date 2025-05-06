@@ -105,7 +105,7 @@ public class ProductReport {
             break;
             case "3":
                 //Show list of all hypervisors
-
+	        supportedHypervisorReport();
             goodInput2 = true;
             break;
             case "4":
