@@ -204,11 +204,20 @@ public class ProductReport {
     }
 	
 	public static void allOsReport() {
-		
-		System.out.println("List of All Operating Systems: ");
-		for(OperatingSystem os :operatingSystemList) {
-			System.out.println( os.getID() + "  " + os.getName() + " " +	os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
-		}
+		System.out.println("List of All Operating Systems\n");
+		System.out.println("Windows Operating Systems:");
+        	for (OperatingSystem os : operatingSystemList) {
+            		if (os.getSystemType().equalsIgnoreCase("Windows")) {
+                		System.out.println(" - " + os.getID() + "  " + os.getName() + " " + os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
+            		}
+        	}
+
+		System.out.println("\nLinux Operating Systems:");
+        	for (OperatingSystem os : operatingSystemList) {
+            		if (os.getSystemType().equalsIgnoreCase("Linux")) {
+                		System.out.println(" - " + os.getID() + "  " + os.getName() + " " + os.getVersion() + " " + os.getHardware() + " " + os.getReleaseDate());
+	        	}
+        	}
 	}
 	
     // This method displays the all products report (case 4)
