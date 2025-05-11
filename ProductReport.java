@@ -434,7 +434,7 @@ public static void supportedSoftwareReport() {
     // Extra space after report
     System.out.println();
 } 
-    public static void supportedHypervisorReport() {
+       public static void supportedHypervisorReport() {
 	    int index = 1; //intialize index for number list 
 	    System.out.println(); //space 
 	    System.out.println("===Supported Hypervisor Product Report==="); // beginning of hypervisor prod report 
@@ -442,12 +442,33 @@ public static void supportedSoftwareReport() {
 	    	for (Product prod : productList) { // will iterate through product list 
 			System.out.println( (index++)  + "."+ prod.getName() + " " + prod.getVersion()); //list number 1-10 with product and version
 		}
+		System.out.println();
 	    
 	    Scanner prodinput = new Scanner(System.in);  //input 
-            System.out.println(); // begin new line for input for report
+            
+		
+		boolean number = true;
+		int input = 0;
+		
+		while (number) {
 	    System.out.println("Enter a number 1-10 to generate a Supported Hypervisor Product report:"); 
-	    int input = Integer.parseInt(prodinput.nextLine()); //convert str into int 
 	    
+        try {
+            input = Integer.parseInt(prodinput.nextLine()); //convert str into int
+
+            if (input >= 1 && input <= productList.length) {  //
+                break;  //  will exit loop
+            } else {
+				System.out.println();
+                System.out.println("Invalid number. Please try again:"); //invalid num out of range will ask user to nput number again 
+            }
+        } catch (NumberFormatException e) {
+			System.out.println();
+            System.out.println("Invalid input-- Please try again:"); //
+        }
+    }
+		
+		
 	    Product select = productList[input - 1];
 	    String[] supportedIDs = select.getsupportedHypervisors().split(",");
 	    
@@ -476,5 +497,4 @@ public static void supportedSoftwareReport() {
 		    System.out.println("None Supported");
 	    }
     }
-
 }
