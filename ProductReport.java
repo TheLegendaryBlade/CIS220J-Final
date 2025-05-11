@@ -233,46 +233,67 @@ public class ProductReport {
     
      // This method displays the supported operating systems for a selected product
     public static void supportedOSReport() {
-    	Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-    	System.out.println("=== Supported Operating Systems Report ===");
+    System.out.println("=== Supported Operating Systems Report ===");
 
-    	// Display all available products
-    	for (int i = 0; i < productList.length; i++) {
-        	System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
-    	}
+    // Display all products
+    for (int i = 0; i < productList.length; i++) {
+        System.out.println((i + 1) + ". " + productList[i].getName() + " (ID: " + productList[i].getID() + ")");
+    }
 
-    	System.out.print("Select a product by number: ");
-    	int choice = Integer.parseInt(scanner.nextLine());
+    // Let user choose a product
+    System.out.print("Select a product by number: ");
+    int choice = Integer.parseInt(scanner.nextLine());
 
-    	if (choice < 1 || choice > productList.length) {
-        	System.out.println("Invalid selection.");
-        	return;
-    	}
+    if (choice < 1 || choice > productList.length) {
+        System.out.println("Invalid selection.");
+        return;
+    }
 
-    	Product selectedProduct = productList[choice - 1];
-    	String[] supportedIDs = selectedProduct.getsupportedOS().split(",");
+    Product selectedProduct = productList[choice - 1];
+    String[] supportedIDs = selectedProduct.getsupportedOS().split(",");
 
-    	System.out.println("\nSupported Operating Systems for " + selectedProduct.getName() + ":");
+    // Separate lists for Windows and Linux
+    List<String> windowsOS = new ArrayList<>();
+    List<String> linuxOS = new ArrayList<>();
 
-    	boolean found = false;
-    	for (OperatingSystem os : operatingSystemList) {
-        	for (String id : supportedIDs) {
-           		if (os.getID().trim().equalsIgnoreCase(id.trim())) {
-                	// Print including system type (Windows/Linux)
-                	System.out.println("- " + os.getName() + " " + os.getVersion() +
-                        " [" + os.getSystemType() + "] (" +
-                        os.getHardware() + ", Released: " + os.getReleaseDate() + ")");
-                	found = true;
-                	break;
-            		}
-        	}
-    	}
+    // Classify supported OS by systemType
+    for (OperatingSystem os : operatingSystemList) {
+        for (String id : supportedIDs) {
+            if (os.getID().trim().equalsIgnoreCase(id.trim())) {
+                String osInfo = os.getName() + " " + os.getVersion() + " (" + os.getHardware() + ", Released: " + os.getReleaseDate() + ")";
+                if (os.getSystemType().equalsIgnoreCase("Windows")) {
+                    windowsOS.add(osInfo);
+                } else if (os.getSystemType().equalsIgnoreCase("Linux")) {
+                    linuxOS.add(osInfo);
+                }
+                break;
+            }
+        }
+    }
 
-    	if (!found) {
-        	System.out.println("No supported operating systems found for this product.");
-    	}
-   }
+    System.out.println("\nSupported Operating Systems for " + selectedProduct.getName() + ":");
+
+    if (linuxOS.isEmpty() && windowsOS.isEmpty()) {
+        System.out.println("No supported operating systems found for this product.");
+        return;
+    }
+
+    if (!windowsOS.isEmpty()) {
+        System.out.println("\n=== Windows Operating Systems ===");
+        for (String os : windowsOS) {
+            System.out.println("- " + os);
+        }
+    }
+
+    if (!linuxOS.isEmpty()) {
+        System.out.println("\n=== Linux Operating Systems ===");
+        for (String os : linuxOS) {
+            System.out.println("- " + os);
+        }
+    }
+}
 	
     public static void allSoftwareReport() {
 	//Print the report title and the headers
