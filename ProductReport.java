@@ -334,9 +334,7 @@ public class ProductReport {
     
 public static void supportedSoftwareReport() {
     Scanner input = new Scanner(System.in);
-
     System.out.println("Product Names:\n");
-
     // Show a numbered list of all available products
     for (int i = 0; i < productList.length; i++) {
         if (productList[i] != null) {
