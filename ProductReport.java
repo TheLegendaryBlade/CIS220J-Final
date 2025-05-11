@@ -293,8 +293,6 @@ public class ProductReport {
 		   }
 		}
     	}    
-	System.out.println("\nTivoli Business Service Manager 6.2.0 - Supported Related Software");
-    	System.out.println("None Supported");
     }	    
     public static void allHypervisorReport() {//start of hypervisor report class
 	    System.out.println(); // move to next line 
