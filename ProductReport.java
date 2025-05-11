@@ -275,21 +275,28 @@ public class ProductReport {
    }
 	
     public static void allSoftwareReport() {
+	//Print the report title and the headers
         System.out.println("All Related Software Report");
 	System.out.printf("%10s%-30s %-10s %-15s\n", "", "Name", "Version", "Release Date");
 	
+	//Define software categories and their labels
 	String[] categories = { "Cloud", "Data", "LDAP", "Web" };
     	String[] headers = { "Cloud Platform", "Databases", "Ldap Servers", "Web Servers" };
 
+	//Loop through each category and print a black line before every group
     	for (int i = 0; i < categories.length; i++) {
     	    if (i != 0) {
       	      System.out.println();
-      	  }
+      	  } 
+		
+	  //Print the group header 
       	  System.out.println(headers[i]);
-        	for (Software sw : softwareList) {
+		
+	  // Loop through each software item	
+          for (Software sw : softwareList) { 
+		   // If the software type matches the current category, print its details
          	   if (sw.getSoftwareType().equalsIgnoreCase(categories[i])) {
-          	      System.out.printf("%10s%-30s %-10s %-15s\n",
-          	              "", sw.getName(), sw.getVersion(), sw.getReleaseDate());
+          	      System.out.printf("%10s%-30s %-10s %-15s\n", "", sw.getName(), sw.getVersion(), sw.getReleaseDate());
 		   }
 		}
     	}    
