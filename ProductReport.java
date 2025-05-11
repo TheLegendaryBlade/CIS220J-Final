@@ -333,76 +333,109 @@ public class ProductReport {
     }//end of allHypervisorReport class	
     
 public static void supportedSoftwareReport() {
+    Scanner input = new Scanner(System.in);
+
+    System.out.println("Product Names:\n");
+
+    // Show a numbered list of all available products
+    for (int i = 0; i < productList.length; i++) {
+        if (productList[i] != null) {
+            String productName = productList[i].getName();
+            String productVersion = productList[i].getVersion();
+            System.out.printf("%2d. %s %s\n", i + 1, productName, productVersion);
+        }
+    }
+
+    int index = -1;
+
+    while (true) {
+        System.out.print("\nEnter a number to choose a product: ");
+        String userInput = input.nextLine();
+
+        // Check if input is a number
+        if (!userInput.matches("\\d+")) {
+            System.out.println("Please enter a valid number.");
+            continue;
+        }
+
+        index = Integer.parseInt(userInput) - 1;
+
+        // Check if number is in valid range
+        if (index < 0 || index >= productList.length || productList[index] == null) {
+            System.out.println("That number is not a valid product.");
+            continue;
+        }
+
+        // Valid input, exit loop
+        break;
+    }
+
+    // Report Output Section
+    Product selected = productList[index];
+    String name = selected.getName();
+    String version = selected.getVersion();
+
+    // Print the product title
+    System.out.println();
+    System.out.println(name + " " + version + " - Supported Related Software");
+
+    // Get the supported software ID list
+    String raw = selected.getsupportedSoftware();
+    if (raw == null || raw.equalsIgnoreCase("None") || raw.trim().isEmpty()) {
+        System.out.println();
+        System.out.println("None Supported");
+        return;
+    }
+
+    // Match Software to Product
+    String[] supportedIDs = raw.split(",");
+    List<Software> matched = new ArrayList<>();
+
+    // Go through each supported ID and match it with software list
+    for (String id : supportedIDs) {
+        id = id.trim(); // Clean up spaces
+        for (Software sw : softwareList) {
+            if (sw != null && sw.getID().equalsIgnoreCase(id)) {
+                matched.add(sw); // Add if match found
+                break;
+            }
+        }
+    }
+
+    // If nothing matched, let the user know
+    if (matched.isEmpty()) {
+        System.out.println();
+        System.out.println("None Supported");
+        return;
+    }
+
+    // Display Matched Software
     String[] categories = { "Cloud", "Data", "LDAP", "Web" };
     String[] headers = { "Cloud Platform", "Databases", "LDAP Servers", "Web Servers" };
 
-    // Go through the product list
-    for (Product product : productList) {
-        if (product == null) continue;
+    // Print column headers
+    System.out.printf("%10s%-44s %-10s\n", "", "Name", "Version");
 
-        String name = product.getName();
-        String version = product.getVersion();
+    // Go through each category and print matching software
+    for (int i = 0; i < categories.length; i++) {
+        boolean printedHeader = false;
 
-        // Skip products that are not WebSphere or Tivoli
-        boolean isWebSphere = name.equals("WebSphere Application Server") && version.equals("9.0.5");
-        boolean isTivoli = name.equals("Tivoli Business Service Manager") && version.equals("6.2.0");
-        if (!isWebSphere && !isTivoli) continue;
-
-        // Print product heading
-        System.out.println();
-        System.out.println(name + " " + version + " - Supported Related Software");
-
-        String supportedList = product.getsupportedSoftware();
-        if (supportedList == null || supportedList.equalsIgnoreCase("None") || supportedList.trim().isEmpty()) {
-            System.out.println();
-            System.out.println("None Supported");
-            continue;
-        }
-
-        // Create list of matched Software
-        List<Software> matched = new ArrayList<>();
-        String[] ids = supportedList.split(",");
-
-        for (String id : ids) {
-            id = id.trim();
-            for (Software sw : softwareList) {
-                if (sw != null && sw.getID().equalsIgnoreCase(id)) {
-                    matched.add(sw);
-                    break;
+        for (Software sw : matched) {
+            if (sw.getSoftwareType().equalsIgnoreCase(categories[i])) {
+                if (!printedHeader) {
+                    System.out.println(headers[i]); // Print category name
+                    printedHeader = true;
                 }
+
+                // Print software name and version
+                System.out.printf("%10s%-44s %-10s\n", "", sw.getName(), sw.getVersion());
             }
         }
-
-        // If nothing matched, show message
-        if (matched.isEmpty()) {
-            System.out.println();
-            System.out.println("None Supported");
-            continue;
-        }
-
-        // Print column titles
-        System.out.printf("%10s%-44s %-10s\n", "", "Name", "Version");
-
-        // Print each group
-        for (int i = 0; i < categories.length; i++) {
-            String currentType = categories[i];
-            String header = headers[i];
-            boolean printed = false;
-
-            for (Software sw : matched) {
-                if (sw.getSoftwareType().equalsIgnoreCase(currentType)) {
-                    if (!printed) {
-                        System.out.println(header);
-                        printed = true;
-                    }
-                    System.out.printf("%10s%-44s %-10s\n", "", sw.getName(), sw.getVersion());
-                }
-            }
-        }
-
-        System.out.println();
     }
-}
+
+    // Extra space after report
+    System.out.println();
+} 
     public static void supportedHypervisorReport() {
 	    int index = 1; //intialize index for number list 
 	    System.out.println(); //space 
